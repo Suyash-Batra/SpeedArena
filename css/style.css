@@ -116,7 +116,45 @@ form label {
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-  margin: 10px 0px 0px 10px;
+}
+
+.parllel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.clickholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .cbtn {
+  width: 100%;
+  max-width: 500px;
+  height: 200px;
+} */
+
+@media (max-width: 480px) {
+  .parllel {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .clickholder {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .cbtn {
+    width: 95%;
+    max-width: 95%;
+    height: 220px;
+    padding: 50px;
+  }
 }
 
 .cbtn:active {
@@ -235,7 +273,7 @@ a:hover {
 
 .card,
 .cardp {
-  height: 280px;
+  height: 240px;
   width: 320px;
   background-color: #111318;
   border: solid 1px #23272f;
@@ -292,7 +330,7 @@ a:hover {
   background-color: #111318;
   border: 1px solid #23272f;
   border-radius: 20px;
-  width: 100%;
+  width: 50%;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -482,45 +520,44 @@ a:hover {
 }
 /*  */
 
-/* Container */
 .table-container {
-  width: 80%;
-  margin: 50px auto;
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
   padding: 20px;
   background: rgba(20, 20, 40, 0.8);
   border-radius: 15px;
   box-shadow: 0 0 25px #00f2ff33;
+  overflow-x: auto;
+  border-radius: 25px;
 }
 
-/* Table */
 .leaderboards {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
   text-align: center;
-  overflow: hidden;
+  border: 2px solid #00f2ff;
+  box-shadow: 0 0 20px #00f2ff55;
+  border-radius: 25px;
 }
 
-/* Table Header */
 .leaderboards thead {
   background: linear-gradient(90deg, #ff00cc, #3333ff);
   text-transform: uppercase;
   letter-spacing: 2px;
 }
 
-.leaderboards th {
-  padding: 15px;
-  font-size: 14px;
-  color: #fff;
-}
-
-/* Table Rows */
+.leaderboards th,
 .leaderboards td {
   padding: 14px;
-  border-bottom: 1px solid #2c2c54;
   font-size: 14px;
 }
 
-/* Hover Effect */
+.leaderboards td {
+  border-bottom: 1px solid #2c2c54;
+}
+
 .leaderboards tbody tr {
   transition: all 0.3s ease;
 }
@@ -531,7 +568,6 @@ a:hover {
   box-shadow: 0 0 15px #00f2ff88;
 }
 
-/* Rank Colors */
 .leaderboards tbody tr:nth-child(1) td:first-child {
   color: gold;
   font-weight: bold;
@@ -545,18 +581,31 @@ a:hover {
 }
 
 .leaderboards tbody tr:nth-child(3) td:first-child {
-  color: #cd7f32; /* bronze */
+  color: #cd7f32;
   font-weight: bold;
   text-shadow: 0 0 10px #cd7f32;
 }
 
-/* Glowing Border */
-.leaderboards {
-  border: 2px solid #00f2ff;
-  border-radius: 10px;
-  box-shadow: 0 0 20px #00f2ff55;
-}
+@media (max-width: 768px) {
+  .table-container {
+    width: 95%;
+    padding: 10px;
+  }
 
+  .leaderboards {
+    min-width: 500px;
+  }
+
+  .leaderboards th,
+  .leaderboards td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .leaderboards img {
+    height: 30px;
+  }
+}
 /*  */
 .trophy1 i {
   margin-top: 100px;
@@ -572,6 +621,11 @@ a:hover {
   margin-bottom: 20px;
 }
 
+.title,
+.subtitle {
+  text-align: center;
+}
+
 .head {
   display: flex;
   align-items: center;
@@ -584,6 +638,7 @@ a:hover {
 .trophy2 i {
   color: #f45c25;
   text-shadow: 0 0 15px rgba(244, 92, 37, 0.4);
+  font-size: 2.5rem;
 }
 
 .title2 {
@@ -591,6 +646,8 @@ a:hover {
   font-family: "Orbitron", sans-serif;
   color: white;
   text-transform: uppercase;
+  font-size: 2rem;
+  text-align: center;
 }
 
 .subtitle2 {
@@ -601,6 +658,26 @@ a:hover {
   font-family: "Orbitron", sans-serif;
   margin-bottom: 30px;
   letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .trophy2 i {
+    font-size: 2rem;
+  }
+
+  .title2 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle2 {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    padding: 0 15px;
+  }
+
+  .leaderboard-area {
+    width: 100%;
+  }
 }
 
 .card-holder {
@@ -680,7 +757,20 @@ textarea {
   border: none;
   border-radius: 15px;
   padding: 20px;
-  width: 50%;
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .textarea {
+    width: 95%;
+    padding: 15px;
+    font-size: 0.95rem;
+  }
 }
 
 .textarea1 {

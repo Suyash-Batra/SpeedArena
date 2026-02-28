@@ -53,11 +53,11 @@ try {
             <th>Rank</th>
             <th>Points</th>
         </tr>
-        <tr><td><img src="images/Apex.png" class="rank-img"></td><td>APEX</td><td>150+</td></tr>
-        <tr><td><img src="images/GrandMaster.png" class="rank-img"></td><td>GRANDMASTER</td><td>130 - 149</td></tr>
-        <tr><td><img src="images/Master.png" class="rank-img"></td><td>MASTER</td><td>100 - 129</td></tr>
-        <tr><td><img src="images/Elite.png" class="rank-img"></td><td>ELITE</td><td>80 - 99</td></tr>
-        <tr><td><img src="images/Rookie.png" class="rank-img"></td><td>ROOKIE</td><td>0 - 79</td></tr>
+        <tr><td><img src="images/Apex.png" class="rank-img"></td><td>APEX</td><td>170+</td></tr>
+        <tr><td><img src="images/GrandMaster.png" class="rank-img"></td><td>GRANDMASTER</td><td>120 - 169</td></tr>
+        <tr><td><img src="images/Master.png" class="rank-img"></td><td>MASTER</td><td>80 - 119</td></tr>
+        <tr><td><img src="images/Elite.png" class="rank-img"></td><td>ELITE</td><td>40 - 79</td></tr>
+        <tr><td><img src="images/Rookie.png" class="rank-img"></td><td>ROOKIE</td><td>0 - 39</td></tr>
     </table>
 </div>
 

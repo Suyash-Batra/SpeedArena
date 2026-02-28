@@ -15,9 +15,9 @@ if (pointsStr != null && pointStr != null) {
 
     try {
         Class.forName("org.postgresql.Driver");
-        String url = System.getenv("DB_URL");
-        String user = System.getenv("DB_USER");
-        String pass = System.getenv("DB_PASS");
+    String url = System.getenv("DB_URL");
+    String user = System.getenv("DB_USER");
+    String pass = System.getenv("DB_PASS");
 
         con = DriverManager.getConnection(url, user, pass);
 
@@ -39,13 +39,13 @@ if (pointsStr != null && pointStr != null) {
             int totalPoints = rs.getInt("total_best_score");
             String rank;
 
-            if (totalPoints >= 150) {
+            if (totalPoints >= 170) {
                 rank = "Apex";
-            } else if (totalPoints >= 130) {
+            } else if (totalPoints >= 120) {
                 rank = "GrandMaster";
-            } else if (totalPoints >= 100) {
-                rank = "Master";
             } else if (totalPoints >= 80) {
+                rank = "Master";
+            } else if (totalPoints >= 40) {
                 rank = "Elite";
             } else {
                 rank = "Rookie";

@@ -10,11 +10,10 @@
             <div class="card-title"><div class="orange" id="time">0s</div></div>
             <div class="card-desc">Total elapsed duration of the challenge.</div>
         </div>
+            <button id="ReactBtn" class="cbtn">Click me </button>
+                <div class="textarea1" id="pointsDisplay"></div>
+                <div class="textarea1" id="total"></div>
     </div>
-    <button id="ReactBtn" class="cbtn">Click me </button><br>
-    <div class="textarea1" id="pointsDisplay"></div>
-    <div class="textarea1" id="total"></div>
-    <button id="restartBtn" class="btn1"> Restart</button><br>
     <%
         session.setAttribute("tid", 3);
     %>

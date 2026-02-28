@@ -31,15 +31,14 @@
     if (cname != null && p != null) {
         try {
             Class.forName("org.postgresql.Driver");
-            String url = System.getenv("DB_URL");
-            String user = System.getenv("DB_USER");
-            String pass = System.getenv("DB_PASS");
-
+    String url = System.getenv("DB_URL");
+    String user = System.getenv("DB_USER");
+    String pass = System.getenv("DB_PASS");
             con = DriverManager.getConnection(url, user, pass);
 
             ps = con.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
-            ps.setString(1, cname);
-            ps.setString(2, p);
+            ps.setString(1, cname.trim());
+            ps.setString(2, p.trim());
             rs = ps.executeQuery();
             if (rs.next()) {
                 int userid = rs.getInt("user_id");

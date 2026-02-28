@@ -35,19 +35,17 @@
 <textarea id="input" onpaste="return false"></textarea>
 <button onclick="resetTest()" class="btn1">Restart</button>
 
-<form id="scoreForm" method="post" action="saveScore.jsp">
-    <input type="hidden" name="points" id="formPoints">
 <%
     session.setAttribute("tid", 1);
     String randtext = "";
 
-    try (Connection conLocal = DriverManager.getConnection(
-            System.getenv("DB_URL"),
-            System.getenv("DB_USER"),
-            System.getenv("DB_PASS"));
-            PreparedStatement rt = conLocal.prepareStatement(
-             "SELECT * FROM para ORDER BY RANDOM() LIMIT 1");
-            ResultSet rpara = rt.executeQuery()) {
+    try {
+    String url = System.getenv("DB_URL");
+    String user = System.getenv("DB_USER");
+    String pass = System.getenv("DB_PASS");
+            Connection conLocal = DriverManager.getConnection(url, user, pass);
+            PreparedStatement rt = conLocal.prepareStatement("SELECT * FROM para ORDER BY RANDOM() LIMIT 1");
+            ResultSet rpara = rt.executeQuery();
 
         Class.forName("org.postgresql.Driver");
 

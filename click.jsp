@@ -4,6 +4,7 @@
     <div class="trophy2"><i class="fa-solid fa-computer-mouse"></i></div>
     <div class="title2">Clicking Test</div></div>
     <div class="subtitle2">Click as fast as you can</div>
+    <div class="parllel">
     <div class="card-holder"><div class="card">
             <div class="card-icon">Click</div>
             <div class="card-title"><div class="orange" id="click">0</div></div>
@@ -20,10 +21,13 @@
             <div class="card-desc">Total elapsed duration of the challenge.</div>
         </div>
     </div>
-    <button id="clickBtn" class="cbtn">Click me </button><br>
-    <div class="textarea1" id="pointsDisplay"></div>
-    <div class="textarea1" id="total"></div>
-    <button id="restartBtn" class="btn1"> Restart</button><br>
+    <div class="clickholder">
+    <button id="clickBtn" class="cbtn">Click me </button>
+    </div>
+    </div>
+        <div class="textarea1" id="pointsDisplay"></div><br>
+        <div class="textarea1" id="total"></div>
+        <button id="restartBtn" class="btn1"> Restart</button>
     <%
         session.setAttribute("tid", 2);
     %>

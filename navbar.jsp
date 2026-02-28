@@ -64,7 +64,7 @@ try {
 
             <a href="profile.jsp">
                 <div class="rank-img">
-                    <img src="<%= request.getContextPath() %>/images/<%= (rank != null ? rank : "default") %>.png" alt="rank" style="height:40px;">
+                    <img src="<%= request.getContextPath() %>/images/<%= (rank != null ? rank : "Rookie") %>.png" alt="rank" style="height:40px;">
                 </div>
             </a>
         </div>
