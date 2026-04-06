@@ -30,16 +30,18 @@
 
     if (cname != null && p != null) {
         try {
-            Class.forName("org.postgresql.Driver");
-    String url = System.getenv("DB_URL");
-    String user = System.getenv("DB_USER");
-    String pass = System.getenv("DB_PASS");
+            // CHANGED: MySQL Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = System.getenv("DB_URL");
+            String user = System.getenv("DB_USER");
+            String pass = System.getenv("DB_PASS");
             con = DriverManager.getConnection(url, user, pass);
 
             ps = con.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
             ps.setString(1, cname.trim());
             ps.setString(2, p.trim());
             rs = ps.executeQuery();
+
             if (rs.next()) {
                 int userid = rs.getInt("user_id");
                 int streak = rs.getInt("streak");
@@ -47,15 +49,17 @@
                 session.setAttribute("userid", userid);
                 session.setAttribute("username", cname);
 
+                // CHANGED: Logic for date subtraction in MySQL using DATEDIFF
                 String sql = "UPDATE users " +
                              "SET streak = CASE " +
                              "    WHEN last_login IS NULL THEN 1 " +
-                             "    WHEN (CURRENT_DATE - last_login) = 1 THEN streak + 1 " +
-                             "    WHEN (CURRENT_DATE - last_login) > 1 THEN 1 " +
+                             "    WHEN DATEDIFF(CURDATE(), last_login) = 1 THEN streak + 1 " +
+                             "    WHEN DATEDIFF(CURDATE(), last_login) > 1 THEN 1 " +
                              "    ELSE streak " +
                              "END, " +
-                             "last_login = CURRENT_DATE " +
+                             "last_login = CURDATE() " +
                              "WHERE user_id = ?";
+                
                 PreparedStatement sp = con.prepareStatement(sql);
                 sp.setInt(1, userid);
                 sp.executeUpdate();
@@ -63,12 +67,15 @@
                 response.sendRedirect("dashboard.jsp");
             } else {
 %>
-                <h2>Invalid login credentials</h2>
+                <h2 style="color:red; text-align:center;">Invalid login credentials</h2>
 <%
             }
-
         } catch (Exception e1) {
-            out.println(e1);
+            out.println("<p style='color:white;'>Error: " + e1.getMessage() + "</p>");
+        } finally {
+            if(rs != null) rs.close();
+            if(ps != null) ps.close();
+            if(con != null) con.close();
         }
     }
 %>

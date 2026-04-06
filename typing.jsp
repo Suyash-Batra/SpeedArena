@@ -1,4 +1,6 @@
+<%@ page import="java.sql.*" %>
 <%@ include file="navbar.jsp" %>
+
 <a href="dashboard.jsp" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
 
 <div class="head">
@@ -38,28 +40,36 @@
 <%
     session.setAttribute("tid", 1);
     String randtext = "";
+    Connection conLocal = null;
+    PreparedStatement rt = null;
+    ResultSet rpara = null;
 
     try {
-    String url = System.getenv("DB_URL");
-    String user = System.getenv("DB_USER");
-    String pass = System.getenv("DB_PASS");
-            Connection conLocal = DriverManager.getConnection(url, user, pass);
-            PreparedStatement rt = conLocal.prepareStatement("SELECT * FROM para ORDER BY RANDOM() LIMIT 1");
-            ResultSet rpara = rt.executeQuery();
+        Class.forName("com.mysql.cj.jdbc.Driver");
 
-        Class.forName("org.postgresql.Driver");
+        String url = System.getenv("DB_URL");
+        String user = System.getenv("DB_USER");
+        String pass = System.getenv("DB_PASS");
+
+        conLocal = DriverManager.getConnection(url, user, pass);
+        
+        rt = conLocal.prepareStatement("SELECT paragraphs FROM para ORDER BY RAND() LIMIT 1");
+        rpara = rt.executeQuery();
 
         if (rpara.next()) {
             randtext = rpara.getString("paragraphs");
         }
 
     } catch(Exception e) {
-        out.println("Error fetching paragraph: " + e.getMessage());
+        out.println("<p style='color:white;'>Error fetching paragraph: " + e.getMessage() + "</p>");
+    } finally {
+        if (rpara != null) rpara.close();
+        if (rt != null) rt.close();
+        if (conLocal != null) conLocal.close();
     }
 %>
-</form>
 
-<script>
+<script>    
     var text = `<%= randtext.replace("`","\\`") %>`;
 </script>
 

@@ -19,7 +19,8 @@ String rank = null;
 int totalPoints = 0;
 
 try {
-    Class.forName("org.postgresql.Driver");
+    Class.forName("com.mysql.cj.jdbc.Driver"); 
+    
     String url = System.getenv("DB_URL");
     String user = System.getenv("DB_USER");
     String pass = System.getenv("DB_PASS");

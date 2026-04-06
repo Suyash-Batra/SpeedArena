@@ -33,16 +33,18 @@ if (username != null && email != null && password != null) {
     ResultSet rs = null;
 
     try {
-        Class.forName("org.postgresql.Driver");
-    String url = System.getenv("DB_URL");
-    String user = System.getenv("DB_USER");
-    String pass = System.getenv("DB_PASS");
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        
+        String url = System.getenv("DB_URL");
+        String user = System.getenv("DB_USER");
+        String pass = System.getenv("DB_PASS");
         con = DriverManager.getConnection(url, user, pass);
 
         psCheck = con.prepareStatement("SELECT username, email FROM users WHERE username = ? OR email = ?");
         psCheck.setString(1, username);
         psCheck.setString(2, email);
         rs = psCheck.executeQuery();
+        
         if (rs.next()) {
 %>
             <script>
@@ -50,6 +52,7 @@ if (username != null && email != null && password != null) {
             </script>
 <%
         } else {
+            // Logic remains identical; MySQL supports this standard INSERT
             psInsert = con.prepareStatement("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
             psInsert.setString(1, username);
             psInsert.setString(2, email);

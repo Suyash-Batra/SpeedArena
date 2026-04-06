@@ -14,10 +14,11 @@ if (pointsStr != null && pointStr != null) {
     ResultSet rs = null;
 
     try {
-        Class.forName("org.postgresql.Driver");
-    String url = System.getenv("DB_URL");
-    String user = System.getenv("DB_USER");
-    String pass = System.getenv("DB_PASS");
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        
+        String url = System.getenv("DB_URL");
+        String user = System.getenv("DB_USER");
+        String pass = System.getenv("DB_PASS");
 
         con = DriverManager.getConnection(url, user, pass);
 
@@ -50,7 +51,7 @@ if (pointsStr != null && pointStr != null) {
             } else {
                 rank = "Rookie";
             }
-
+            
             String updateSql = "UPDATE users SET total_points = ?, rank_name = ? WHERE user_id = ?";
             ps2 = con.prepareStatement(updateSql);
             ps2.setInt(1, totalPoints);

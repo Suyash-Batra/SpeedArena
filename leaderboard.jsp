@@ -28,7 +28,8 @@ try {
         return;
     }
 
-    Class.forName("org.postgresql.Driver");
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    
     String url = System.getenv("DB_URL");
     String user = System.getenv("DB_USER");
     String pass = System.getenv("DB_PASS");
@@ -131,6 +132,14 @@ try {
 <%
 } catch (Exception e) {
     out.println(e);
+} finally {
+    if(rsUser != null) rsUser.close();
+    if(rsTop != null) rsTop.close();
+    if(rsAll != null) rsAll.close();
+    if(psUser != null) psUser.close();
+    if(psTop != null) psTop.close();
+    if(psAll != null) psAll.close();
+    if(con != null) con.close();
 }
 %>
 

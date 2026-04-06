@@ -1,7 +1,14 @@
-FROM tomcat:10.1-jdk21-temurin
+# Use Tomcat 9 as the server
+FROM tomcat:9.0-jdk11-openjdk
 
+# Remove default Tomcat apps to avoid confusion
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
-COPY SpeedArena.war /usr/local/tomcat/webapps/ROOT.war
+# Copy your entire project into the ROOT directory of Tomcat
+COPY . /usr/local/tomcat/webapps/ROOT
 
-CMD sed -i "s/8080/${PORT}/g" /usr/local/tomcat/conf/server.xml && catalina.sh run
+# Expose port 8080 (standard for Tomcat)
+EXPOSE 8080
+
+# Start Tomcat
+CMD ["catalina.sh", "run"]

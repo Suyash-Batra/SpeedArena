@@ -22,7 +22,7 @@ String rank = null;
 int totalPoints = 0;
 
 try {
-    Class.forName("org.postgresql.Driver");
+    Class.forName("com.mysql.cj.jdbc.Driver");
     String url = System.getenv("DB_URL");
     String user = System.getenv("DB_USER");
     String pass = System.getenv("DB_PASS");
@@ -64,7 +64,6 @@ try {
 }
 %>
 
-<!-- Navbar -->
 <nav class="navbar">
     <div class="logo">Speed&nbsp;<div class="orange">Arena</div></div>
     <div class="rightcon">
@@ -96,12 +95,12 @@ try {
                 </div>
                 <hr style="border: 0; border-top: 1px solid #23272f; margin: 20px 0;">
                 <%
-                int j = 0;
-                PreparedStatement psAll = con.prepareStatement("SELECT user_id FROM users ORDER BY total_points DESC");
-                ResultSet rsAll = psAll.executeQuery();
-                while (rsAll.next()) { j++; if (uid == rsAll.getInt("user_id")) break; }
-                rsAll.close(); psAll.close();
-                String rankCol = (j == 1) ? "#DAA520" : (j == 2) ? "#aeabab" : (j == 3) ? "#cd7f32" : "#f45c25";
+                    int j = 0;
+                    PreparedStatement psAll = con.prepareStatement("SELECT user_id FROM users ORDER BY total_points DESC");
+                    ResultSet rsAll = psAll.executeQuery();
+                    while (rsAll.next()) { j++; if (uid == rsAll.getInt("user_id")) break; }
+                    rsAll.close(); psAll.close();
+                    String rankCol = (j == 1) ? "#DAA520" : (j == 2) ? "#aeabab" : (j == 3) ? "#cd7f32" : "#f45c25";
                 %>
                 <div class="sidebar-rank">
                     <div class="card-icon">Leaderboard Position</div>
@@ -124,16 +123,16 @@ try {
 
         <div class="stats-area">
             <%
-            PreparedStatement psS = con.prepareStatement(
-                "SELECT " +
-                "MAX(CASE WHEN test_id=1 THEN point END), AVG(CASE WHEN test_id=1 THEN point END), " +
-                "MAX(CASE WHEN test_id=2 THEN point END), AVG(CASE WHEN test_id=2 THEN point END), " +
-                "MIN(CASE WHEN test_id=3 THEN point END), AVG(CASE WHEN test_id=3 THEN point END) " +
-                "FROM scores WHERE user_id = ?"
-            );
-            psS.setInt(1, uid);
-            ResultSet rsS = psS.executeQuery();
-            if(rsS.next()){
+                PreparedStatement psS = con.prepareStatement(
+                    "SELECT " +
+                    "MAX(CASE WHEN test_id=1 THEN point END), AVG(CASE WHEN test_id=1 THEN point END), " +
+                    "MAX(CASE WHEN test_id=2 THEN point END), AVG(CASE WHEN test_id=2 THEN point END), " +
+                    "MIN(CASE WHEN test_id=3 THEN point END), AVG(CASE WHEN test_id=3 THEN point END) " +
+                    "FROM scores WHERE user_id = ?"
+                );
+                psS.setInt(1, uid);
+                ResultSet rsS = psS.executeQuery();
+                if(rsS.next()){
             %>
             <div class="section-tile">Personal Bests</div>
             <div class="card-grid">
