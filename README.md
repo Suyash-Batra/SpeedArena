@@ -1,34 +1,35 @@
-Speed Arena
+# Speed Arena ⚡
 
-Speed Arena is a web application to test and improve user skills in typing, clicking, and reaction time. Users compete for points, rank tiers, and leaderboard positions.
+Speed Arena is a high-performance web application designed to test and improve user skills in typing speed, clicking accuracy, and reaction time. Compete against others to climb the leaderboard and reach the **Apex** rank!
 
+## 🚀 Deployment Status
+The application is officially migrated to the cloud:
+* **Hosting:** Render (Tomcat 9 Docker Container)
+* **Database:** TiDB Serverless (MySQL Protocol)
+* **Live Link:** https://speedarena.onrender.com/login.jsp
 
-Features
+## ✨ Features
+* **Three Core Tests:** Typing speed, click speed, and reaction time.
+* **Ranking System:** 5 tiers – Rookie, Elite, Master, GrandMaster, and Apex.
+* **Leaderboard:** Global real-time rankings based on total points.
+* **Streak System:** Rewards daily login consistency with point multipliers.
+* **Dynamic Dashboard:** Interactive game cards rendering live `<i>` icons from the database.
 
-- Three Tests: Typing speed, click speed, reaction time.
-- Ranking System: 5 tiers – Rookie, Elite, Master, GrandMaster, Apex.
-- Leaderboard: Shows top performers and total points.
-- Streak System: Daily login streak gives bonus multipliers.
-- User Profile: Displays personal bests and averages for all tests.
-- Dynamic Points Update: Scores update total points and rank automatically.
+## 🛠️ Technologies Used
+* **Frontend:** JSP, HTML5, CSS3 (Responsive Grid), JavaScript (ES6)
+* **Backend:** Java Servlets, JDBC
+* **Database:** **TiDB Cloud (MySQL Compatible)**
+* **Icons:** Font Awesome 6.5.1 (Solid)
 
-Technologies Used
+## 🗄️ Database Schema (TiDB / MySQL)
+Run the following script in your TiDB console to initialize your tables. 
 
-- Frontend: JSP, HTML, CSS, JavaScript
-- Backend: Java Servlets, JSP
-- Database: PostgreSQL
-- Other: Font Awesome icons, Google Fonts
-
-
-Database Setup
-
-1. Create a PostgreSQL database (e.g., `speedarena`).
-2. Run the provided SQL scripts to create tables:
+> **Note:** We use `INT AUTO_INCREMENT` instead of PostgreSQL's `SERIAL`, and icons are stored as full HTML strings (e.g., `<i class="fa-solid fa-trophy"></i>`).
 
 ```sql
--- Example tables:
+-- 1. Users Table
 CREATE TABLE users (
-    user_id SERIAL PRIMARY KEY,
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
@@ -38,34 +39,36 @@ CREATE TABLE users (
     last_login DATE
 );
 
+-- 2. Tests Table
 CREATE TABLE tests (
-    test_id SERIAL PRIMARY KEY,
+    test_id INT AUTO_INCREMENT PRIMARY KEY,
     test_name VARCHAR(50),
     description TEXT,
     avg_points INT,
-    icon TEXT,
+    icon TEXT, 
     href TEXT
 );
 
+-- 3. Paragraphs Table
 CREATE TABLE para (
-    para_id SERIAL PRIMARY KEY,
+    para_id INT AUTO_INCREMENT PRIMARY KEY,
     paragraphs TEXT
 );
 
+-- 4. Scores Table
 CREATE TABLE scores (
-    score_id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
-    test_id INT REFERENCES tests(test_id) ON DELETE CASCADE,
+    score_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    test_id INT,
     score INT,
-    point INT
+    point INT,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_test FOREIGN KEY (test_id) REFERENCES tests(test_id) ON DELETE CASCADE
 );
+```
 
-3. Insert initial data into tests and para using the provided SQL files.
-
-
-
-Project Structure
-
+## 📂 Project Structure
+```text
 SpeedArena/
 ├─ css/                 # CSS files
 ├─ js/                  # JavaScript files for typing, clicking, reaction tests
@@ -85,46 +88,13 @@ SpeedArena/
 ├─ login.jsp             # Login page
 ├─ register.jsp          # Registration page
 └─ README.md            # Project documentation
+```
 
+## ⚙️ Environment Variables
+The application requires these variables to be set in the Render Dashboard:
+* `DB_URL` – `jdbc:mysql://<host>:4000/test?sslMode=VERIFY_IDENTITY`
+* `DB_USER` – Your TiDB username
+* `DB_PASS` – Your TiDB password
 
-Environment Variables
-
-Set the following environment variables for database connection:
-
-DB_URL – PostgreSQL connection URL (e.g., jdbc:postgresql://localhost:5432/speedarena)
-
-DB_USER – Database username
-
-DB_PASS – Database password
-
-
-How to Run
-
-1. Deploy the project on a Tomcat server.
-
-
-2. Ensure PostgreSQL is running and the environment variables are set.
-
-
-3. Access the application in a browser (e.g., http://localhost:8080/SpeedArena).
-
-
-4. Register a new user, try all three tests, and watch points, ranks, and leaderboard update dynamically.
-
-
-Usage Notes
-
-Typing Test: Random paragraphs from para table.
-
-Click Test: Users click a target as fast as possible.
-
-Reaction Test: Users react to prompts with minimal latency.
-
-Profile Page: Shows best and average scores, streak, and rank.
-
-Leaderboard: Shows top performers with ranks and points.
-
-
-License
-
-This project is open source. You can modify and use it for learning or personal use.
+## 📜 License
+This project is open-source. Feel free to use it for learning or personal development.
